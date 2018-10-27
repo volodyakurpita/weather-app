@@ -22,7 +22,7 @@ class App extends React.Component {
     const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
     const data = await api_call.json();
 
-    if (city) {
+    if (city && data.cod !== '404') {
       this.setState({
         city: data.name,
         temperature: data.main.temp,
@@ -31,16 +31,16 @@ class App extends React.Component {
         description: data.weather[0].description,
         error: "",
       });
-    } else {
-      this.setState({
-        city: undefined,
-        temperature: undefined,
-        humidity: undefined,
-        pressure: undefined,
-        description: undefined,
-        error: "Please enter your city",
+      } else {
+        this.setState({
+          city: undefined,
+          temperature: undefined,
+          humidity: undefined,
+          pressure: undefined,
+          description: undefined,
+          error: data.cod === '404' ? "Not found this city" : "Please enter your city",
       });
-    }
+    } 
   }
 
   render() {
