@@ -1,5 +1,3 @@
 ## Weather Web Application
 
-## Start project :
-### `npm start`
-Open [http://localhost:3000]
+## Search the weather for the specified city
